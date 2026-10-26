@@ -1001,7 +1001,7 @@ body.dark .dark-toggle:hover{background:rgba(255,255,255,0.2);}
         <div class="repair-banner-title">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-s)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           Cambios de Status — Pendientes de confirmar en Arturito
-          <span style="font-size:11px;color:var(--text3);font-weight:400;margin-left:auto">Se notifica diariamente en Google Chat</span>
+          
         </div>
         <div id="repairTrackerList"></div>
       </div>
@@ -1582,8 +1582,6 @@ let changes_db={};
 const CHANGELOG_FILE='changelog.json';
 const CHANGELOG_API=`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${CHANGELOG_FILE}`;
 let changelogSHA='';
-const _wh='aHR0cHM6Ly9jaGF0Lmdvb2dsZWFwaXMuY29tL3YxL3NwYWNlcy9BQVFBN2JvdEVRby9tZXNzYWdlcz9rZXk9QUl6YVN5RGRJMGhDWnRFNnZ5U2pNbS1XRWZScTNDUHpxS3Fxc0hJJnRva2VuPUhabTdZT1RHVUtzODRrWkhpWTRBMF9VRjFHZHpyTmU5NjRHSzhPWVRZbVE=';
-let WEBHOOK=atob(_wh);
 let GITHUB_TOKEN=localStorage.getItem('gh_token')||'';
 const RAW_URL=`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${GITHUB_FILE}`;
 const API_URL=`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
@@ -1776,8 +1774,6 @@ async function notifyChat(device,changes,action){
       +'🏢 *Área:* '+(device['AREA']||'—')+' | *Asignado a:* '+(device['ASIGNACIÓN']||'—')+'\n'+sep+'\n'
       +'🕐 '+now;
   }
-  try{await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});}
-  catch(e){console.warn('Chat error',e);}
 }
 
 function normalizeStatus(s){
@@ -2346,8 +2342,6 @@ async function notifyAuditChat(rec) {
     rec.fecha
   ].filter(Boolean);
   const text = lines.join('\n');
-  try { await fetch(WEBHOOK, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) }); }
-  catch(e) { console.warn('Chat error', e); }
 }
 
 function renderAuditTab() {
@@ -3017,9 +3011,8 @@ async function confirmGenerateMeet() {
   text += sep + nl + 'Enviado por: ' + currentUser + ' - IS Mercado Libre';
 
   try {
-    await fetch(WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text}) });
     document.getElementById('meetOverlay').classList.remove('open');
-    showToast('Notificacion enviada a Google Chat ✓', 'success');
+    showToast('Reunion abierta ✓', 'success');
     // Open Google Meet in new tab
     setTimeout(() => window.open(meetLink, '_blank'), 500);
   } catch(e) {
@@ -3166,7 +3159,6 @@ async function saveBulk() {
     text += 'S/N agregados:' + nl;
     toAdd.slice(0,10).forEach(sn => { text += '  - ' + sn + nl; });
     if (toAdd.length > 10) text += '  ... y ' + (toAdd.length-10) + ' mas' + nl;
-    try { await fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})}); } catch(e){}
 
     document.getElementById('bulkOverlay').classList.remove('open');
     applyFilters();
@@ -4418,7 +4410,6 @@ async function sendRepairDailyNotif() {
   text += sep + nl + 'Confirma en la app: Pestana Garantia';
 
   try {
-    await fetch(WEBHOOK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text})});
     repairConfirmed['__notif_sent__'] = today;
     await saveRepairConfirmed();
   } catch(e) { console.warn('repair notif error', e); }
@@ -4724,7 +4715,6 @@ async function saveBulkStatus() {
     text += 'Equipos actualizados: ' + changed.length + nl + sep + nl;
     changed.slice(0,10).forEach(c => { text += '- ' + c.sn + ' (' + c.desc + ')' + nl; });
     if(changed.length > 10) text += '... y ' + (changed.length - 10) + ' mas' + nl;
-    try { await fetch(WEBHOOK, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text})}); } catch(e){}
 
     // Changelog
     for(const c of changed) {

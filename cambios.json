@@ -1,20 +1,3 @@
 {
-  "__new__dsadsadsa": {
-    "S/N": "dsadsadsa",
-    "ESTATUS FISICO": "In Use",
-    "Categoría": "Notebook",
-    "DISPOSITIVO": "",
-    "MARCA": "",
-    "MODELO": "",
-    "AREA": "",
-    "ASIGNACIÓN": "",
-    "IP": "",
-    "MAC": "",
-    "SSID": "",
-    "O.S.": "",
-    "DEPLOY": "",
-    "Fullfiment": "",
-    "Comentarios": "",
-    "Status in Arturito": "In Use"
-  }
+  "__deleted__dsadsadsa": true
 }

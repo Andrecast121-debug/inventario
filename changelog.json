@@ -2,16 +2,16 @@
   {
     "sn": "jhgjh",
     "device": " ",
-    "area": "",
+    "area": "LI",
     "changes": [
       {
-        "label": "Accion",
+        "label": "Área",
         "before": "",
-        "after": "Dispositivo agregado"
+        "after": "LI"
       }
     ],
     "user": "André Jael Castillo Diaz",
-    "ts": "2026-10-26T20:29:19.583Z"
+    "ts": "2026-10-26T20:29:54.783Z"
   },
   {
     "sn": "dsadsadsa",

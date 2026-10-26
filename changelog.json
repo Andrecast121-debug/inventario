@@ -1,5 +1,19 @@
 [
   {
+    "sn": "jhgjh",
+    "device": " ",
+    "area": "",
+    "changes": [
+      {
+        "label": "Accion",
+        "before": "",
+        "after": "Dispositivo agregado"
+      }
+    ],
+    "user": "André Jael Castillo Diaz",
+    "ts": "2026-10-26T20:29:19.583Z"
+  },
+  {
     "sn": "dsadsadsa",
     "device": " ",
     "area": "",
